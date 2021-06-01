@@ -16,7 +16,8 @@ void DppKernelModel::parse_sample(const std::string &file_path, std::vector<std:
         while (field != nullptr) {
             std::string item(field);
             if (uniq_item.find(item) == uniq_item.end()) {
-                uniq_item[item] = uniq_item.size();
+                size_t n = uniq_item.size();
+                uniq_item[item] = n;
                 item_names->emplace_back(item);
             }
             one_line.emplace_back(uniq_item[item]);

@@ -1,6 +1,6 @@
 Package: rDppDiversity
 Title: Subset Searching Algorithm Using DPP Greedy MAP
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: 
     c(
         person(
@@ -109,7 +109,7 @@ RoxygenNote: 7.1.1
 LinkingTo: Rcpp
 Imports: Rcpp
 NeedsCompilation: yes
-Packaged: 2021-05-19 13:32:12 UTC; menglingwu
+Packaged: 2021-05-31 12:48:06 UTC; menglingwu
 Author: Sining Ng [aut, cre] (<https://orcid.org/0000-0003-3463-707X>),
   Laming Chen [aut],
   Guoxin Zhang [aut],
@@ -130,4 +130,4 @@ Author: Sining Ng [aut, cre] (<https://orcid.org/0000-0003-3463-707X>),
   Konstantinos Margaritis [cph] (https://gitlab.com/freevec)
 Maintainer: Sining Ng <sining_ng@icloud.com>
 Repository: CRAN
-Date/Publication: 2021-05-20 07:10:02 UTC
+Date/Publication: 2021-06-01 10:50:02 UTC

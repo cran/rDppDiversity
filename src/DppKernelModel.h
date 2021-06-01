@@ -18,16 +18,16 @@
 class DppKernelModel {
 
 public:
-    typedef Eigen::Matrix<float, Eigen::Dynamic, Eigen::Dynamic> Mat;
+    typedef Eigen::Matrix<float, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> Mat;
 
     explicit DppKernelModel(size_t num_items, size_t embedding_size, float regularization = 0.1): _num_items(num_items), _emb_size(embedding_size), _num_iter(0), _accumulate_log_likelihood(0), _regularization(regularization) {
         std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
         std::chrono::system_clock::duration tp = now.time_since_epoch();
         generator = std::default_random_engine(static_cast<unsigned>(tp / std::chrono::microseconds(1)));
-        _item_representations_ptr = std::shared_ptr<Mat>(new Mat(_num_items, _emb_size));
+        _item_representations_ptr = std::shared_ptr<Mat>(new Mat(num_items, embedding_size));
         std::uniform_real_distribution<float > rand = std::uniform_real_distribution<float>(-1, 1);
-        for (size_t i = 0; i < _num_items; i++) {
-            for (size_t j = 0; j < _emb_size; j++) {
+        for (size_t i = 0; i < num_items; i++) {
+            for (size_t j = 0; j < embedding_size; j++) {
                 (*_item_representations_ptr)(i, j) = rand(generator);
             }
         }
@@ -72,12 +72,23 @@ private:
                 (*_item_representations_ptr)(sample[i], j) += learning_rate * pos_grad(i, j);
     };
 
+
+    // test
+    // test
+    // test
+    // test
+    // test
     void gradient(const std::vector<size_t > &index_set, Mat* grad, float label) {
         size_t n = grad->rows();
         if (n == 0) return;
         Mat subset_item_mat(n, _emb_size);
-        for (size_t i = 0; i < n; i++)
-            subset_item_mat.row(i) = _item_representations_ptr->row(index_set[i]);
+        for (size_t i = 0; i < n; i++) {
+            for (size_t j = 0; j < _emb_size; j++) {
+                float xx = (*_item_representations_ptr)(index_set[i], j);
+                subset_item_mat(i, j) = xx;
+            }
+        }
+
         Mat subset_kernel_mat = subset_item_mat * subset_item_mat.transpose();
         for (size_t i = 0; i < n; i++)
             subset_kernel_mat(i, i) += _regularization;

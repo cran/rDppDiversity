@@ -38,5 +38,6 @@ Rcpp::DataFrame bestSubset(Rcpp::NumericMatrix item_representations, Rcpp::Numer
     names[1] = "gain";
     Rcpp::DataFrame df(tmp);
     df.attr("names") = names;
+    delete res;
     return df;
 }
